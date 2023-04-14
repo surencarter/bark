@@ -13,7 +13,7 @@ def gen_tts(text, history_prompt, temp_semantic, temp_waveform):
     if history_prompt == "Unconditional":
         history_prompt = None
     else:
-        history_prompt = history_prompt.lower().replace(" ", "_")
+        history_prompt = history_prompt.lower().replace(" ", "_").replace("speaker", "speech")
     if DEBUG_MODE:
         audio_arr = np.zeros(SAMPLE_RATE)
     else:
@@ -27,7 +27,7 @@ iface = gr.Interface(
     inputs=[
         gr.Textbox(label="Input Text", lines=3, value=default_text), 
         gr.Dropdown(
-            ["Unconditional"] + [f"Speech {n}" for n in range(8)] + [f"Music {n}" for n in range(6)], 
+            ["Unconditional"] + [f"Speaker {n}" for n in range(8)] + [f"Music {n}" for n in range(6)], 
             value="None", label="Acoustic Prompt", info="This choice primes the model on how to condition the generated audio."
         ),
         gr.Slider(minimum=0, maximum=1, step=0.01, value=0.7, label="Temp 1", info="Gen. temperature of semantic tokens. (lower is more conservative, higher is more diverse)"),
