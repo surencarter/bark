@@ -1,6 +1,6 @@
 ---
 title: Bark
-emoji: 🚀
+emoji: 🐶
 colorFrom: pink
 colorTo: blue
 sdk: gradio
