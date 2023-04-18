@@ -96,15 +96,16 @@ MAN: Wow, that's expensive!
 
 ## Details
 
-Bark model by [Suno](https://suno.ai/), including official [code](https://github.com/suno-ai/bark) and model weights. Gradio demo supported by 🤗 Hugging Face. Bark is licensed under a non-commercial license: CC-BY 4.0 NC, see details on [GitHub](https://github.com/suno-ai/bark).
+Bark model by [Suno](https://suno.ai/), including official [code](https://github.com/suno-ai/bark) and model weights. \
+Gradio demo supported by 🤗 Hugging Face. Bark is licensed under a non-commercial license: CC-BY 4.0 NC, see details on [GitHub](https://github.com/suno-ai/bark).
 
 
 """
 
 examples = [
-    ["Please surprise me and speak in whatever voice you enjoy.", "Unconditional", 0.7, 0.7],
-    ["Hello, my name is Suno. And, uh — and I like pizza. [laughs] But I also have other interests such as playing tic tac toe.", "Speaker 1 (en)", 0.7, 0.7],
-    ["Buenos días Miguel. Tu colega piensa que tu alemán es extremadamente malo. But I suppose your english isn't terrible.",  "Speaker 0 (es)", 0.7, 0.7], 
+    ["Please surprise me and speak in whatever voice you enjoy. Vielen Dank und Gesundheit!", "Unconditional"],#, 0.7, 0.7],
+    ["Hello, my name is Suno. And, uh — and I like pizza. [laughs] But I also have other interests such as playing tic tac toe.", "Speaker 1 (en)"],#, 0.7, 0.7],
+    ["Buenos días Miguel. Tu colega piensa que tu alemán es extremadamente malo. But I suppose your english isn't terrible.",  "Speaker 0 (es)"],#, 0.7, 0.7], 
 ]
 
 
