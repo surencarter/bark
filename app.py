@@ -108,12 +108,12 @@ examples = [
 ]
 
 
-def gen_tts(text, history_prompt, temp_semantic, temp_waveform):
+def gen_tts(text, history_prompt):#, temp_semantic, temp_waveform):
     history_prompt = PROMPT_LOOKUP[history_prompt]
     if DEBUG_MODE:
         audio_arr = np.zeros(SAMPLE_RATE)
     else:
-        audio_arr = generate_audio(text, history_prompt=history_prompt, text_temp=temp_semantic, waveform_temp=temp_waveform)
+        audio_arr = generate_audio(text, history_prompt=history_prompt)#, text_temp=temp_semantic, waveform_temp=temp_waveform)
     audio_arr = (audio_arr * 32767).astype(np.int16)
     return (SAMPLE_RATE, audio_arr)
 
