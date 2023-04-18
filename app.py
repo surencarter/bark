@@ -114,7 +114,7 @@ def gen_tts(text, history_prompt, temp_semantic, temp_waveform):
         audio_arr = np.zeros(SAMPLE_RATE)
     else:
         audio_arr = generate_audio(text, history_prompt=history_prompt, text_temp=temp_semantic, waveform_temp=temp_waveform)
-    audio_array = (audio_array * 32767).astype(np.int16)
+    audio_arr = (audio_arr * 32767).astype(np.int16)
     return (SAMPLE_RATE, audio_arr)
 
 iface = gr.Interface(
