@@ -23,7 +23,11 @@ default_text = "Hello, my name is Suno. And, uh — and I like pizza. [laughs]\n
 title = "<div style='text-align:left'>🐶 Bark</div>"
 
 description = """
+<div>
 <a href='https://github.com/suno-ai/bark'><img src='https://img.shields.io/github/stars/suno-ai/bark?style=social' /></a>
+<a style="display:inline-block" href="https://huggingface.co/spaces/suno/bark?duplicate=true"><img src="https://img.shields.io/badge/-Duplicate%20Space-blue?labelColor=white&style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAP5JREFUOE+lk7FqAkEURY+ltunEgFXS2sZGIbXfEPdLlnxJyDdYB62sbbUKpLbVNhyYFzbrrA74YJlh9r079973psed0cvUD4A+4HoCjsA85X0Dfn/RBLBgBDxnQPfAEJgBY+A9gALA4tcbamSzS4xq4FOQAJgCDwV2CPKV8tZAJcAjMMkUe1vX+U+SMhfAJEHasQIWmXNN3abzDwHUrgcRGmYcgKe0bxrblHEB4E/pndMazNpSZGcsZdBlYJcEL9Afo75molJyM2FxmPgmgPqlWNLGfwZGG6UiyEvLzHYDmoPkDDiNm9JR9uboiONcBXrpY1qmgs21x1QwyZcpvxt9NS09PlsPAAAAAElFTkSuQmCC&logoWidth=14" alt="Duplicate Space"></a>
+</div>
+
 Bark is a universal text-to-audio model created by [Suno](www.suno.ai), with code publicly available [here](https://github.com/suno-ai/bark). \
 Bark can generate highly realistic, multilingual speech as well as other audio - including music, background noise and simple sound effects. \
 This demo should be used for research purposes only. Commercial use is strictly prohibited. \
