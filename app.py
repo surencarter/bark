@@ -3,7 +3,7 @@ import gradio as gr
 from bark import SAMPLE_RATE, generate_audio, preload_models
 from bark.generation import SUPPORTED_LANGS
 
-DEBUG_MODE = False
+DEBUG_MODE = True
 
 if not DEBUG_MODE:
     _ = preload_models()
@@ -25,9 +25,9 @@ title = "<div style='text-align:left'>🐶 Bark</div>"
 description = """
 <div>
 <a style="display:inline-block" href='https://github.com/suno-ai/bark'><img src='https://img.shields.io/github/stars/suno-ai/bark?style=social' /></a>
+<a style='display:inline-block' href='https://discord.gg/J2B2vsjKuE'><img src='https://dcbadge.vercel.app/api/server/J2B2vsjKuE?compact=true&style=flat' /></a>
 <a style="display:inline-block; margin-left: 1em" href="https://huggingface.co/spaces/suno/bark?duplicate=true"><img src="https://img.shields.io/badge/-Duplicate%20Space%20to%20skip%20the%20queue-blue?labelColor=white&style=flat&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAP5JREFUOE+lk7FqAkEURY+ltunEgFXS2sZGIbXfEPdLlnxJyDdYB62sbbUKpLbVNhyYFzbrrA74YJlh9r079973psed0cvUD4A+4HoCjsA85X0Dfn/RBLBgBDxnQPfAEJgBY+A9gALA4tcbamSzS4xq4FOQAJgCDwV2CPKV8tZAJcAjMMkUe1vX+U+SMhfAJEHasQIWmXNN3abzDwHUrgcRGmYcgKe0bxrblHEB4E/pndMazNpSZGcsZdBlYJcEL9Afo75molJyM2FxmPgmgPqlWNLGfwZGG6UiyEvLzHYDmoPkDDiNm9JR9uboiONcBXrpY1qmgs21x1QwyZcpvxt9NS09PlsPAAAAAElFTkSuQmCC&logoWidth=14" alt="Duplicate Space"></a>
 </div>
-
 Bark is a universal text-to-audio model created by [Suno](www.suno.ai), with code publicly available [here](https://github.com/suno-ai/bark). \
 Bark can generate highly realistic, multilingual speech as well as other audio - including music, background noise and simple sound effects. \
 This demo should be used for research purposes only. Commercial use is strictly prohibited. \
@@ -139,5 +139,8 @@ iface = gr.Interface(
     examples=examples,
     cache_examples=False,
 )
+
+with gr.Group(elem_id="share-btn-container", visible=False):
+    share_button = gr.Button("Share to community", elem_id="share-btn")
 
 iface.launch(enable_queue=True)
