@@ -3,7 +3,7 @@ import gradio as gr
 from bark import SAMPLE_RATE, generate_audio, preload_models
 from bark.generation import SUPPORTED_LANGS
 
-DEBUG_MODE = True
+DEBUG_MODE = False
 
 if not DEBUG_MODE:
     _ = preload_models()
