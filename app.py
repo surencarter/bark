@@ -2,6 +2,7 @@ import numpy as np
 import gradio as gr
 from bark import SAMPLE_RATE, generate_audio, preload_models
 from bark.generation import SUPPORTED_LANGS
+from share_btn import community_icon_html, loading_icon_html, share_js
 
 DEBUG_MODE = False
 
@@ -107,40 +108,74 @@ Gradio demo supported by 🤗 Hugging Face. Bark is licensed under a non-commerc
 """
 
 examples = [
-    ["Please surprise me and speak in whatever voice you enjoy. Vielen Dank und Gesundheit!", "Unconditional"],#, 0.7, 0.7],
-    ["Hello, my name is Suno. And, uh — and I like pizza. [laughs] But I also have other interests such as playing tic tac toe.", "Speaker 1 (en)"],#, 0.7, 0.7],
-    ["Buenos días Miguel. Tu colega piensa que tu alemán es extremadamente malo. But I suppose your english isn't terrible.",  "Speaker 0 (es)"],#, 0.7, 0.7], 
+    ["Please surprise me and speak in whatever voice you enjoy. Vielen Dank und Gesundheit!",
+        "Unconditional"],  # , 0.7, 0.7],
+    ["Hello, my name is Suno. And, uh — and I like pizza. [laughs] But I also have other interests such as playing tic tac toe.",
+        "Speaker 1 (en)"],  # , 0.7, 0.7],
+    ["Buenos días Miguel. Tu colega piensa que tu alemán es extremadamente malo. But I suppose your english isn't terrible.",
+        "Speaker 0 (es)"],  # , 0.7, 0.7],
 ]
 
 
-def gen_tts(text, history_prompt):#, temp_semantic, temp_waveform):
+def gen_tts(text, history_prompt):  # , temp_semantic, temp_waveform):
     history_prompt = PROMPT_LOOKUP[history_prompt]
     if DEBUG_MODE:
         audio_arr = np.zeros(SAMPLE_RATE)
     else:
-        audio_arr = generate_audio(text, history_prompt=history_prompt)#, text_temp=temp_semantic, waveform_temp=temp_waveform)
+        # , text_temp=temp_semantic, waveform_temp=temp_waveform)
+        audio_arr = generate_audio(text, history_prompt=history_prompt)
     audio_arr = (audio_arr * 32767).astype(np.int16)
     return (SAMPLE_RATE, audio_arr)
 
-iface = gr.Interface(
-    fn=gen_tts, 
-    inputs=[
-        gr.Textbox(label="Input Text", lines=2, value=default_text), 
-        gr.Dropdown(AVAILABLE_PROMPTS, value="Speaker 1 (en)", label="Acoustic Prompt"),
-        # gr.Slider(minimum=0, maximum=1, step=0.01, value=0.7, label="Temp 1", info="Gen. temperature of semantic tokens. (lower is more conservative, higher is more diverse)"),
-        # gr.Slider(minimum=0, maximum=1, step=0.01, value=0.7, label="Temp 2", info="Gen. temperature of waveform tokens. (lower is more conservative, higher is more diverse)"),
-    ], 
-    outputs=[
-        gr.Audio(label="Generated Audio", type="numpy"),
-    ],
-    title=title,
-    description=description,
-    article=article,
-    examples=examples,
-    cache_examples=False,
-)
 
-with gr.Group(elem_id="share-btn-container", visible=False):
-    share_button = gr.Button("Share to community", elem_id="share-btn")
+css = """
+        #share-btn-container {
+            display: flex; padding-left: 0.5rem !important; padding-right: 0.5rem !important; background-color: #000000; justify-content: center; align-items: center; border-radius: 9999px !important; width: 13rem;
+            margin-top: 10px;
+            margin-left: auto;
+        }
+        #share-btn {
+            all: initial; color: #ffffff;font-weight: 600; cursor:pointer; font-family: 'IBM Plex Sans', sans-serif; margin-left: 0.5rem !important; padding-top: 0.25rem !important; padding-bottom: 0.25rem !important;right:0;
+        }
+        #share-btn * {
+            all: unset;
+        }
+        #share-btn-container div:nth-child(-n+2){
+            width: auto !important;
+            min-height: 0px !important;
+        }
+        #share-btn-container .wrap {
+            display: none !important;
+        }
+"""
+with gr.Blocks(css=css) as block:
+    gr.Markdown(title)
+    gr.Markdown(description)
+    with gr.Row():
+        with gr.Column():
+            input_text = gr.Textbox(
+                label="Input Text", lines=2, value=default_text, elem_id="input_text")
+            options = gr.Dropdown(
+                AVAILABLE_PROMPTS, value="Speaker 1 (en)", label="Acoustic Prompt", elem_id="speaker_option")
+            run_button = gr.Button(text="Generate Audio", type="button")
+        with gr.Column():
+            audio_out = gr.Audio(label="Generated Audio",
+                                 type="numpy", elem_id="audio_out")
+            with gr.Row(visible=False) as share_row:
+                with gr.Group(elem_id="share-btn-container"):
+                    community_icon = gr.HTML(community_icon_html)
+                    loading_icon = gr.HTML(loading_icon_html)
+                    share_button = gr.Button(
+                        "Share to community", elem_id="share-btn")
+                    share_button.click(None, [], [], _js=share_js)
+    inputs = [input_text, options]
+    outputs = [audio_out]
+    gr.Examples(examples=examples, fn=gen_tts, inputs=inputs,
+                outputs=outputs, cache_examples=True)
+    gr.Markdown(article)
+    run_button.click(fn=lambda: gr.update(visible=False), inputs=None, outputs=share_row, queue=False).then(
+        fn=gen_tts, inputs=inputs, outputs=outputs, queue=True).then(
+        fn=lambda: gr.update(visible=True), inputs=None, outputs=share_row, queue=False)
 
-iface.launch(enable_queue=True)
+block.queue()
+block.launch()
