@@ -21,7 +21,7 @@ PROMPT_LOOKUP["Announcer"] = "announcer"
 
 default_text = "Hello, my name is Suno. And, uh — and I like pizza. [laughs]\nBut I also have other interests such as playing tic tac toe."
 
-title = "<div style='text-align:left'>🐶 Bark</div>"
+title = "# 🐶 Bark</div>"
 
 description = """
 <div>
@@ -130,15 +130,31 @@ def gen_tts(text, history_prompt):  # , temp_semantic, temp_waveform):
 
 css = """
         #share-btn-container {
-            display: flex; padding-left: 0.5rem !important; padding-right: 0.5rem !important; background-color: #000000; justify-content: center; align-items: center; border-radius: 9999px !important; width: 13rem;
+            display: flex;
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+            background-color: #000000;
+            justify-content: center;
+            align-items: center;
+            border-radius: 9999px !important; 
+            width: 13rem;
             margin-top: 10px;
             margin-left: auto;
+            flex: unset !important;
         }
         #share-btn {
-            all: initial; color: #ffffff;font-weight: 600; cursor:pointer; font-family: 'IBM Plex Sans', sans-serif; margin-left: 0.5rem !important; padding-top: 0.25rem !important; padding-bottom: 0.25rem !important;right:0;
+            all: initial;
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'IBM Plex Sans', sans-serif;
+            margin-left: 0.5rem !important;
+            padding-top: 0.25rem !important;
+            padding-bottom: 0.25rem !important;
+            right:0;
         }
         #share-btn * {
-            all: unset;
+            all: unset !important;
         }
         #share-btn-container div:nth-child(-n+2){
             width: auto !important;
